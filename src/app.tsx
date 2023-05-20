@@ -72,21 +72,36 @@ function AddTask({ setTasks, tasks }: AddTaskProps) {
 }
 function TaskList({ tasks }: { tasks: Task[] }) {
   // TODO: Filter tasks based on search text
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>(tasks);
+
+  // Filter tasks based on search text
+  const handleFilterTasks = (searchText: string) => 
+  (event: Event) =>{  
+    const filteredTasks = tasks.filter(task =>
+      task.description.includes(searchText)
+    );
+    setFilteredTasks(filteredTasks);
+  };
+
   return (
     <div>
+    <input
+      type="text"
+      placeholder="Search task"
+      value={searchText}
+      onChange={(e) => setSearchText(e.target.value)}
+    />
+    
       <ul>
         {
-          tasks.map((task) => (
-              <li>
-                {task.description}
-              </li>
-            )
-          )
-        }
+        filteredTasks.map((task) => (
+          <li>{task.description}</li>
+        ))}
       </ul>
     </div>
   );
 }
+
 
 export function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
