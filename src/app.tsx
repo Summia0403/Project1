@@ -79,9 +79,9 @@ function TaskList({ tasks }: { tasks: Task[] }) {
   (event: Event) =>{  
     const filteredTasks = tasks.filter(task =>
       task.description.includes(searchText)
-    );
+    
     setFilteredTasks(filteredTasks);
-  };
+  }, [searchText, tasks]);
 
   return (
     <div>
